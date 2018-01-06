@@ -15,7 +15,7 @@
 ## 引用类型
 引用类型的值大小不固定，因此不能把它们放在栈内存中，但是内存地址的大小是固定的，可以把内存地址存在栈内存中，在堆中为这个地址分配空间。那么我们如果访问一个引用类型的变量，流程就是先从栈内存中读取变量的地址，通过这个地址去找到存储在堆内存中的值。对于这种方式，叫做引用访问
 
-[https://kidbai.github.io/img/stack.png](https://kidbai.github.io/img/stack.png)
+![image](https://kidbai.github.io/img/stack.png)
 
 # 执行环境
 
