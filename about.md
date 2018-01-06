@@ -3,7 +3,8 @@ layout: page
 title: About
 ---
 ## About
-待补充
+[weibo](http://weibo.com/u/2182384477/home?wvr=5)
+[zhihu](https://www.zhihu.com/people/youngbye/activities)
 
 
 
