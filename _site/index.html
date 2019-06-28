@@ -7,8 +7,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
 	<meta name="generator" content="Jekyll">
 
-	<title>Monochrome | A minimal, responsive Jekyll blog theme</title>
-  <meta name="description" content="A minimal, responsive, ready to use blog template, built with Jekyll.">
+	<title>Youngbye blog</title>
+  <meta name="description" content="Youngbye blog, Youngbye">
 
 	<!-- CSS & fonts -->
 	<link rel="stylesheet" href="/css/main.css">
@@ -35,7 +35,7 @@
 	    
 	  
 	    
-	      <a href="/about" title="About Monochrome">About Monochrome</a>
+	      <a href="/about" title="About">About</a>
 	    
 	  
 	    
@@ -59,7 +59,7 @@
 	
 	  <footer>
 	
-	<span>version 1.0.0</span>
+	<!-- <span>version 1.0.0</span> -->
 
 </footer>
 	
@@ -89,7 +89,7 @@
 	      
 	    
 	      
-	        <a href="/about" title="About Monochrome">About Monochrome</a>
+	        <a href="/about" title="About">About</a>
 	      
 	    
 	      
@@ -127,6 +127,46 @@
 	
 
 	  <li class="post">
+	  	<h2><a href="/RabbitMQ%E4%B8%8A%E6%89%8B(Node)">Rabbitmq上手(node)</a></h2>
+      <time datetime="2019-06-28T00:00:00+08:00" class="by-line"> <i>28 Jun 2019</i> </time>
+	  	<p>大纲 介绍 安装以及编码 介绍 RabbitMQ 是一个消息代理，其主要思想比较简单。允许接收和转发消息。你可以把RabbitMQ想成是一个邮局，当你发一份邮件到邮箱，你相当确定邮递员最终会把这封信送到你的收件人那边。 使用这个比喻，RabbitMQ可以是一个邮箱，或一个邮局，或一个邮递员。 其与邮局主要的不同是实际上RabbitMQ并不处理内容，而是接收，存储然后转发二进制数据–消息（message） 在RabbitMQ的消息传递上，我们用一些术语来解释： 生产（Producing） 意味着只做发送的事情。一个发送消息（message）的程序可以作为一个生产者（producer）.图如下，代号‘P’ 队列（queue）是一个邮箱的名字，存在在 RabbitMQ中。尽管消息（messages）是在RabbitMQ和你的应用中传递，但是它们只能被存到一个队列中。这个队列没有任何限制，可以存储你想要的任何多的消息，实际上，它就是一个无限的Buffer，大量生产者可以把消息发送到一个 队列中，消费者们可以尝试从一个队列中去接收数据。一个队列可以画成下图所示：上方是它的名字 消费（Consuming）和接收的意思类似。一个等待接收消息的程序是一个消费者（Consumer）。如下图所示，代号“C”： 生产者-队列-消费者 安装以及编码 安装部署RabbitMQ amqplib （node） 安装部署RabbitMQ 通过docker安装 获查询镜像 docker search rabbitmq:management 可以查到： Youngbye➜ ~ ᐅ docker search rabbitmq:management NAME DESCRIPTION STARS OFFICIAL AUTOMATED macintoshplus/rabbitmq-management Based on rabbitmq:management whit python and… 3 [OK] transmitsms/rabbitmq-sharded Fork of...</p>
+	  </li>
+
+    
+
+	  <li class="post">
+	  	<h2><a href="/%E6%9C%AC%E5%9C%B0%E8%87%AA%E5%BB%BASSL%E6%B5%81%E7%A8%8B">本地自建ssl流程</a></h2>
+      <time datetime="2018-05-26T00:00:00+08:00" class="by-line"> <i>26 May 2018</i> </time>
+	  	<p>找到自己openssl配置的位置 find / -name openssl.cnf 打开openssl.cnf 把[ req ]下的#req_extensions = v3_req # The extensions to add to a certificate request注释去掉，启用v3_req 在[ v3_req ]下配置 subjectAltName=IP:127.0.0.1，更多配置方法可以参考 https://www.openssl.org/docs/man1.0.2/apps/x509v3_config.html#Subject-Alternative-Name。 还可以将 subjectAltName=@alternate_names 在openssl.cnf中额外增加一个新的配置[ alternate_names ] [ alternate_names ] DNS.1 = example.com DNS.2 = www.example.com DNS.3 = mail.example.com DNS.4 = ftp.example.com IP.1 = 192.168.1.1 ... 生成签名...</p>
+	  </li>
+
+    
+
+	  <li class="post">
+	  	<h2><a href="/%E9%87%8D%E8%AF%BB-JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E7%AC%AC%E4%B8%89%E7%89%88%E7%AC%94%E8%AE%B0-%E5%8F%98%E9%87%8F-%E4%BD%9C%E7%94%A8%E4%BA%8E%E5%92%8C%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98">重读《javascript高级程序设计》第三版笔记 变量、作用于和内存问题</a></h2>
+      <time datetime="2018-01-05T00:00:00+08:00" class="by-line"> <i>05 Jan 2018</i> </time>
+	  	<p>变量、作用域和内存问题 该章节主要讲解了以下三个重点内容： 理解基本类型和引用类型的值 理解执行环境 理解垃圾回收 基本类型和引用类型的值 首先JavaScript中的变量分为基本类型和引用类型。 基本类型就是保存在栈内存中的简单数据段，而引用类型指的是那些保存在堆内存中的对象。 基本类型 基本类型有Undefined、Null、Boolean、Number 和String。这些类型在内存中分别占有固定大小的空间，他们的值保存在栈空间，我们通过按值来访问的。 引用类型 引用类型的值大小不固定，因此不能把它们放在栈内存中，但是内存地址的大小是固定的，可以把内存地址存在栈内存中，在堆中为这个地址分配空间。那么我们如果访问一个引用类型的变量，流程就是先从栈内存中读取变量的地址，通过这个地址去找到存储在堆内存中的值。对于这种方式，叫做引用访问 执行环境 每个函数都有自己的执行环境。当执行流进入一个函数时，函数的环境就会被推入一个环境栈中。 而在函数执行之后，栈将其环境弹出，把控制权返回给之前的执行环境。ECMAScript 程序中的执行流 正是由这个方便的机制控制着。 5 当代码在一个环境中执行时，会创建变量对象的一个作用域链(scope chain)。作用域链的用途，是 保证对执行环境有权访问的所有变量和函数的有序访问。作用域链的前端，始终都是当前执行的代码所 在环境的变量对象。如果这个环境是函数，则将其活动对象(activation object)作为变量对象。活动对 6 象在最开始时只包含一个变量，即 arguments 对象(这个对象在全局环境中是不存在的)。作用域链中 的下一个变量对象来自包含(外部)环境，而再下一个变量对象则来自下一个包含环境。这样，一直延 续到全局执行环境;全局执行环境的变量对象始终都是作用域链中的最后一个对象。 var color = "blue"; function changeColor(){ var anotherColor = "red"; function swapColors(){ var tempColor = anotherColor; anotherColor = color; color...</p>
+	  </li>
+
+    
+
+	  <li class="post">
+	  	<h2><a href="/%E9%87%8D%E8%AF%BB-JavaScript%E9%AB%98%E7%BA%A7%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E7%AC%AC%E4%B8%89%E7%89%88%E7%AC%94%E8%AE%B0-%E7%A7%81%E6%9C%89%E5%8F%98%E9%87%8F">重读《javascript高级程序设计》第三版笔记 私有变量</a></h2>
+      <time datetime="2018-01-03T00:00:00+08:00" class="by-line"> <i>03 Jan 2018</i> </time>
+	  	<p>私有变量 “严格来讲，JavaScript 中没有私有成员的概念;所有对象属性都是公有的。不过，倒是有一个私有 变量的概念。任何在函数中定义的变量，都可以认为是私有变量，因为不能在函数的外部访问这些变量。” 通过下面的例子，我们来解读上面这一句话: function animal() { var name = 'Joe' //私有变量 this.species = 'Husky' //公有变量 } var dog = new animal() console.log(dog.species) // Husky 我们可以发现，外部是可以直接访问species这个变量的，但无法访问name，那么该如何访问内部的私有变量？我们可以 function animal() { var name = 'Joe' //私有变量 this.species = 'Husky' //公有变量 this.say = function () { return name } } var dog...</p>
+	  </li>
+
+    
+
+	  <li class="post">
+	  	<h2><a href="/Blob%E5%AF%B9%E8%B1%A1%E7%9A%84%E4%BA%86%E8%A7%A3%E5%92%8C%E4%BD%BF%E7%94%A8">Blob对象的了解和使用</a></h2>
+      <time datetime="2017-10-19T00:00:00+08:00" class="by-line"> <i>19 Oct 2017</i> </time>
+	  	<p>Blob 概念 Blob对象表示不可变的类似文件对象的原始数据。Blob表示不一定是JavaScript原生形式的数据。 File 接口基于Blob，继承了 blob的功能并将其扩展使其支持用户系统上的文件。 File接口 文件(File) 接口提供有关文件的信息，并允许网页中的 JavaScript 访问其内容。 通常情况下， File 对象是来自用户在一个input元素上选择文件后返回的 FileList 对象,也可以是来自由拖放操作生成的 DataTransfer 对象，或者来自 HTMLCanvasElement 上的 mozGetAsFile() API。在Gecko中，特权代码可以创建代表任何本地文件的File对象，而无需用户交互（有关详细信息，请参阅注意事项。 File 对象是特殊类型的 Blob，且可以用在任意的 Blob 类型的 context 中。比如说， FileReader, URL.createObjectURL(), createImageBitmap(), 及 XMLHttpRequest.send() 都能处理 Blob 和 File。 File对象和Blob对象 File对象,就是一个文件,比如我用input type=”file”标签来上传文件,那么里面的每个文件都是一个File对象. Blob对象,就是二进制数据,比如通过new Blob()创建的对象就是Blob对象 场景 上传 下载 图片展示 URL.createObjectURL() https://developer.mozilla.org/zh-CN/docs/Web/API/URL/createObjectURL URL.createObjectURL()...</p>
+	  </li>
+
+    
+
+	  <li class="post">
 	  	<h2><a href="/%E6%90%AD%E5%BB%BA%E8%87%AA%E5%B7%B1%E7%9A%84blog">搭建自己的blog</a></h2>
       <time datetime="2017-10-13T00:00:00+08:00" class="by-line"> <i>13 Oct 2017</i> </time>
 	  	<p>Hello World
@@ -147,7 +187,7 @@
 	  </div>
 	    
 	    <!-- Footer -->
-	    <footer><span>@2017 - Youngbye</span></footer>
+	    <footer><span>@2017-2019 Youngbye</span></footer>
 
 
 	    <!-- Script -->

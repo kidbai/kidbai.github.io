@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<meta name="generator" content="Jekyll">
+
+	<title>Blob对象的了解和使用</title>
+  <meta name="description" content="Youngbye blog, Youngbye">
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css">
+
+	<!-- RSS -->
+	<link href="/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+	  	<!-- Navigation -->
+	  	<nav id="nav">
+	<div id="nav-list">
+		<a href="//">Home</a>
+
+		<!-- Nav pages -->
+	  
+	    
+	  
+	    
+	      <a href="/about" title="About">About</a>
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+    
+    <!-- Nav links -->
+	  <a href="https://github.com/kidbai">Github</a>
+
+
+	</div>
+  
+  <!-- Nav footer -->
+	
+	  <footer>
+	
+	<!-- <span>version 1.0.0</span> -->
+
+</footer>
+	
+
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+
+      <!-- Header -->
+      
+        <header id="header" class="parent justify-spaceBetween">
+  <div class="inner w100 relative">
+    <span class="f-left">  
+      <a href="//">
+        <h1>
+          Youngbye
+        </h1>
+      </a>
+    </span>
+    <span id="nav-links" class="absolute right bottom">
+      <!-- Nav pages -->
+	    
+	      
+	    
+	      
+	        <a href="/about" title="About">About</a>
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+      
+      <!-- Nav links -->
+	    <a href="https://github.com/kidbai">Github</a>
+
+
+    </span>
+  </div>
+</header>
+
+
+
+
+      
+
+    <!-- Main content -->
+	  <div id="container">
+		  
+		<main>
+
+			<article id="post-page">
+	<h2>Blob对象的了解和使用</h2>		
+	<time datetime="2017-10-19T00:00:00+08:00" class="by-line">19 Oct 2017</time>
+	<div class="content">
+
+		<h1 id="blob">Blob</h1>
+
+<h2 id="概念">概念</h2>
+
+<p>Blob对象表示不可变的类似文件对象的原始数据。Blob表示不一定是JavaScript原生形式的数据。 File 接口基于Blob，继承了 blob的功能并将其扩展使其支持用户系统上的文件。</p>
+
+<h2 id="file接口">File接口</h2>
+<p>文件(File) 接口提供有关文件的信息，并允许网页中的 JavaScript 访问其内容。</p>
+
+<p>通常情况下， File 对象是来自用户在一个input元素上选择文件后返回的 FileList 对象,也可以是来自由拖放操作生成的 DataTransfer 对象，或者来自 HTMLCanvasElement 上的 mozGetAsFile() API。在Gecko中，特权代码可以创建代表任何本地文件的File对象，而无需用户交互（有关详细信息，请参阅注意事项。</p>
+
+<p>File 对象是特殊类型的 Blob，且可以用在任意的 Blob 类型的 context 中。比如说， FileReader, URL.createObjectURL(), createImageBitmap(), 及 XMLHttpRequest.send() 都能处理 Blob  和 File。</p>
+
+<h2 id="file对象和blob对象">File对象和Blob对象</h2>
+
+<p>File对象,就是一个文件,比如我用input type=”file”标签来上传文件,那么里面的每个文件都是一个File对象.</p>
+
+<p>Blob对象,就是二进制数据,比如通过new Blob()创建的对象就是Blob对象</p>
+
+<h2 id="场景">场景</h2>
+
+<ul>
+  <li>上传</li>
+  <li>下载</li>
+  <li>图片展示</li>
+</ul>
+
+<h2 id="urlcreateobjecturl">URL.createObjectURL()</h2>
+<p>https://developer.mozilla.org/zh-CN/docs/Web/API/URL/createObjectURL</p>
+
+<p>URL.createObjectURL() 静态方法会创建一个 DOMString，其中包含一个表示参数中给出的对象的URL。这个 URL 的生命周期和创建它的窗口中的 document 绑定。这个新的URL 对象表示指定的 File 对象或 Blob 对象。</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>objectURL = URL.createObjectURL(blob || file);
+</code></pre></div></div>
+
+<h5 id="objecturl-存在哪里">objectURL 存在哪里？</h5>
+
+<p>URL does not refer to data the exists on the server, it refers to data that your browser currently has in memory, for the current page. It will not be available on other pages, it will not be available in other browsers, and it will not be available from other computers.</p>
+
+<h2 id="urlrevokeobjecturl">URL.revokeObjectURL()</h2>
+<p>https://developer.mozilla.org/zh-CN/docs/Web/API/URL/revokeObjectURL</p>
+
+<p>每次调用createObjectURL时，即使你已经为同一个文件创建过一个URL，也会创建一个新的URL对象。
+　　如果你不再需要这个对象，需要使用URL.revokeObjectURL()方法释放它。
+　　虽然当页面被关闭，浏览器会自动释放它，但是为了最佳性能和内存使用，当确保不再用得到它时，就应该释放它。</p>
+
+<h2 id="下载文件">下载文件</h2>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">lang=</span><span class="s">"en"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">"viewport"</span> <span class="na">content=</span><span class="s">"width=device-width, initial-scale=1.0"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">http-equiv=</span><span class="s">"X-UA-Compatible"</span> <span class="na">content=</span><span class="s">"ie=edge"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>file<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"file"</span> <span class="na">type=</span><span class="s">"file"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">"btn"</span><span class="nt">&gt;</span>click<span class="nt">&lt;/button&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">var</span> <span class="nx">file</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'file'</span><span class="p">)</span>
+        <span class="kd">var</span> <span class="nx">downloadFile</span>
+        <span class="nx">file</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'change'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="c1">// Filelist 对象</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">file</span><span class="p">.</span><span class="nx">files</span><span class="p">)</span>
+            <span class="nx">downloadFile</span> <span class="o">=</span> <span class="nx">file</span><span class="p">.</span><span class="nx">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="kd">var</span> <span class="nx">fileLink</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span>
+            <span class="nx">fileLink</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="s1">'download.csv'</span>
+            <span class="kd">var</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Blob</span><span class="p">([</span><span class="nx">downloadFile</span><span class="p">])</span>
+            <span class="nx">fileLink</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">)</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">fileLink</span><span class="p">);</span>
+        <span class="p">})</span>
+        <span class="kd">var</span> <span class="nx">btn</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">'btn'</span><span class="p">)</span>
+        <span class="nx">btn</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'click'</span><span class="p">)</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)[</span><span class="mi">0</span><span class="p">].</span><span class="nx">click</span><span class="p">()</span>
+        <span class="p">})</span>
+
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+<h2 id="片段上传文件">片段上传文件</h2>
+<p>大文件分割 (slice() 方法)
+slice() 方法接受三个参数，起始偏移量，结束偏移量，还有可选的 mime 类型。如果 mime 类型，没有设置，那么新的 Blob 对象的 mime 类型和父级一样。
+当要上传大文件的时候，此方法非常有用，可以将大文件分割分段，然后各自上传，因为分割之后的 Blob 对象和原始的是独立存在的。</p>
+
+<p>不过目前浏览器实现此方法还没有统一，火狐使用的是 mozSlice() ，Chrome 使用的是 webkitSlice() ，其他浏览器则正常的方式 slice() 
+可以写一个兼容各浏览器的方法：</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>function sliceBlob(blob, start, end, type) {  
+  type = type || blob.type;  
+  if (blob.mozSlice) {  
+      return blob.mozSlice(start, end, type);  
+  } else if (blob.webkitSlice) {  
+      return blob.webkitSlice(start, end type);  
+  } else {  
+      throw new Error("This doesn't work!");  
+  }  
+}
+</code></pre></div></div>
+
+<h2 id="图片展示">图片展示</h2>
+
+<p>img的src属性及background的url属性，都可以通过接收图片的网络地址或base64来显示图片，同样的，我们也可以把图片转化为Blob对象，生成URL（URL.createObjectURL(blob)）</p>
+
+
+		
+	</div>
+</article>
+
+
+
+	  </main>
+		
+		  <!-- Pagination links -->
+      
+
+	  </div>
+	    
+	    <!-- Footer -->
+	    <footer><span>@2017-2019 Youngbye</span></footer>
+
+
+	    <!-- Script -->
+      <script src="/js/main.js"></script>	
+
+
+	</div>
+</body>
+</html>

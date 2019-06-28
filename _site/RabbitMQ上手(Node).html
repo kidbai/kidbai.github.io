@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Meta -->
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+	<meta name="generator" content="Jekyll">
+
+	<title>Rabbitmq上手(node)</title>
+  <meta name="description" content="Youngbye blog, Youngbye">
+
+	<!-- CSS & fonts -->
+	<link rel="stylesheet" href="/css/main.css">
+
+	<!-- RSS -->
+	<link href="/atom.xml" type="application/atom+xml" rel="alternate" title="ATOM Feed" />
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/png" href="img/favicon.png">
+
+</head>
+
+
+<body>
+	<div id="wrap">
+	  	
+	  	<!-- Navigation -->
+	  	<nav id="nav">
+	<div id="nav-list">
+		<a href="//">Home</a>
+
+		<!-- Nav pages -->
+	  
+	    
+	  
+	    
+	      <a href="/about" title="About">About</a>
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+	    
+	  
+    
+    <!-- Nav links -->
+	  <a href="https://github.com/kidbai">Github</a>
+
+
+	</div>
+  
+  <!-- Nav footer -->
+	
+	  <footer>
+	
+	<!-- <span>version 1.0.0</span> -->
+
+</footer>
+	
+
+</nav>
+
+    
+    <!-- Icon menu -->
+	  <a id="nav-menu">
+	  	<div id="menu"></div>
+	  </a>
+
+      <!-- Header -->
+      
+        <header id="header" class="parent justify-spaceBetween">
+  <div class="inner w100 relative">
+    <span class="f-left">  
+      <a href="//">
+        <h1>
+          Youngbye
+        </h1>
+      </a>
+    </span>
+    <span id="nav-links" class="absolute right bottom">
+      <!-- Nav pages -->
+	    
+	      
+	    
+	      
+	        <a href="/about" title="About">About</a>
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+	      
+	    
+      
+      <!-- Nav links -->
+	    <a href="https://github.com/kidbai">Github</a>
+
+
+    </span>
+  </div>
+</header>
+
+
+
+
+      
+
+    <!-- Main content -->
+	  <div id="container">
+		  
+		<main>
+
+			<article id="post-page">
+	<h2>Rabbitmq上手(node)</h2>		
+	<time datetime="2019-06-28T00:00:00+08:00" class="by-line">28 Jun 2019</time>
+	<div class="content">
+
+		<h1 id="大纲">大纲</h1>
+<ul>
+  <li>介绍</li>
+  <li>安装以及编码</li>
+</ul>
+
+<h2 id="介绍">介绍</h2>
+
+<p>RabbitMQ 是一个消息代理，其主要思想比较简单。允许接收和转发消息。你可以把RabbitMQ想成是一个邮局，当你发一份邮件到邮箱，你相当确定邮递员最终会把这封信送到你的收件人那边。
+使用这个比喻，RabbitMQ可以是一个邮箱，或一个邮局，或一个邮递员。
+其与邮局主要的不同是实际上RabbitMQ并不处理内容，而是接收，存储然后转发二进制数据–消息（message）</p>
+
+<p>在RabbitMQ的消息传递上，我们用一些术语来解释：</p>
+
+<ul>
+  <li>
+    <p>生产（Producing） 意味着只做发送的事情。一个发送消息（message）的程序可以作为一个生产者（producer）.图如下，代号‘P’</p>
+
+    <p><img src="https://www.rabbitmq.com/img/tutorials/producer.png" alt="image" /></p>
+  </li>
+  <li>
+    <p>队列（queue）是一个邮箱的名字，存在在 RabbitMQ中。尽管消息（messages）是在RabbitMQ和你的应用中传递，但是它们只能被存到一个队列中。这个队列没有任何限制，可以存储你想要的任何多的消息，实际上，它就是一个无限的Buffer，大量生产者可以把消息发送到一个
+队列中，消费者们可以尝试从一个队列中去接收数据。一个队列可以画成下图所示：上方是它的名字</p>
+  </li>
+</ul>
+
+<p><img src="https://www.rabbitmq.com/img/tutorials/queue.png" alt="image" /></p>
+
+<ul>
+  <li>消费（Consuming）和接收的意思类似。一个等待接收消息的程序是一个消费者（Consumer）。如下图所示，代号“C”：</li>
+</ul>
+
+<p><img src="https://www.rabbitmq.com/img/tutorials/consumer.png" alt="image" /></p>
+
+<ul>
+  <li>生产者-队列-消费者</li>
+</ul>
+
+<p><img src="https://www.rabbitmq.com/img/tutorials/python-one.png" alt="image" /></p>
+
+<h2 id="安装以及编码">安装以及编码</h2>
+
+<ul>
+  <li>安装部署RabbitMQ</li>
+  <li>amqplib （node）</li>
+</ul>
+
+<h3 id="安装部署rabbitmq">安装部署RabbitMQ</h3>
+
+<p>通过docker安装</p>
+
+<h4 id="获查询镜像">获查询镜像</h4>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker search rabbitmq:management
+</code></pre></div></div>
+<p>可以查到：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Youngbye➜  ~  ᐅ  docker search rabbitmq:management
+
+NAME                                DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
+macintoshplus/rabbitmq-management   Based on rabbitmq:management whit python and…   3                                       [OK]
+transmitsms/rabbitmq-sharded        Fork of rabbitmq:management with sharded_exc…   0
+xiaochunping/rabbitmq               xiaochunping/rabbitmq:management   2018-06-30   0
+</code></pre></div></div>
+<p>拉取镜像</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker pull rabbitmq:management
+</code></pre></div></div>
+<p>运行镜像</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d -p 5672:5672 -p 15672:15672 --name rabbitmq rabbitmq:management
+
+</code></pre></div></div>
+<p>访问后台</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://localhost:15672/#/
+</code></pre></div></div>
+
+<h3 id="用例">用例</h3>
+
+<p>创建一个消费者</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// consumer.js
+// 使用callback API
+var amqp = require('amqplib/callback_api')
+
+// 链接rabbitmq server
+amqp.connect('amqp://localhost', function (err, conn) {
+  //创建通道
+  conn.createChannel(function (err, ch) {
+    // 声明一个队列
+    var q = 'queue'
+    ch.assertQueue(q, {durable: false})
+    console.log(' [*] 等待消息 in %s [对列名]. To exit press CTRL+C', q)
+    // 消费
+    ch.consume(q, function(msg) {
+      console.log(msg)
+      console.log(' [x] 收到消息 %s', msg.content.toString())
+      ch.ack(msg)
+    })
+  })
+})
+</code></pre></div></div>
+
+<p>生产者:</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// send.js
+var amqp = require('amqplib/callback_api')
+
+amqp.connect('amqp://localhost', function (err, conn) {
+  conn.createChannel(function (err, ch) {
+    var q = 'queue'
+    ch.assertQueue(q, {durable: false})
+    // 发送消息到队列中
+    ch.sendToQueue(q, new Buffer('hello world'))
+    console.log('[x] send Hello world')
+  })
+  setTimeout(function () {
+    // 关闭通道
+    conn.close()
+    process.exit(0)
+  }, 500)
+})
+
+</code></pre></div></div>
+
+<p>启动消费者</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node consumer.js
+</code></pre></div></div>
+<p>发送被消费的消息</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node send.js
+```# 大纲
+- 介绍
+- 安装以及编码
+
+## 介绍
+
+RabbitMQ 是一个消息代理，其主要思想比较简单。允许接收和转发消息。你可以把RabbitMQ想成是一个邮局，当你发一份邮件到邮箱，你相当确定邮递员最终会把这封信送到你的收件人那边。
+使用这个比喻，RabbitMQ可以是一个邮箱，或一个邮局，或一个邮递员。
+其与邮局主要的不同是实际上RabbitMQ并不处理内容，而是接收，存储然后转发二进制数据--消息（message）
+
+在RabbitMQ的消息传递上，我们用一些术语来解释：
+
+- 生产（Producing） 意味着只做发送的事情。一个发送消息（message）的程序可以作为一个生产者（producer）.图如下，代号‘P’
+
+   ![image](https://www.rabbitmq.com/img/tutorials/producer.png)
+   
+- 队列（queue）是一个邮箱的名字，存在在 RabbitMQ中。尽管消息（messages）是在RabbitMQ和你的应用中传递，但是它们只能被存到一个队列中。这个队列没有任何限制，可以存储你想要的任何多的消息，实际上，它就是一个无限的Buffer，大量生产者可以把消息发送到一个
+队列中，消费者们可以尝试从一个队列中去接收数据。一个队列可以画成下图所示：上方是它的名字
+
+![image](https://www.rabbitmq.com/img/tutorials/queue.png)
+
+- 消费（Consuming）和接收的意思类似。一个等待接收消息的程序是一个消费者（Consumer）。如下图所示，代号“C”：
+
+![image](https://www.rabbitmq.com/img/tutorials/consumer.png)
+
+- 生产者-队列-消费者
+
+![image](https://www.rabbitmq.com/img/tutorials/python-one.png)
+
+
+## 安装以及编码
+
+- 安装部署RabbitMQ
+- amqplib （node）
+
+### 安装部署RabbitMQ
+
+通过docker安装
+
+#### 获查询镜像
+</code></pre></div></div>
+<p>docker search rabbitmq:management</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>可以查到：
+</code></pre></div></div>
+<p>Youngbye➜  ~  ᐅ  docker search rabbitmq:management</p>
+
+<p>NAME                                DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
+macintoshplus/rabbitmq-management   Based on rabbitmq:management whit python and…   3                                       [OK]
+transmitsms/rabbitmq-sharded        Fork of rabbitmq:management with sharded_exc…   0
+xiaochunping/rabbitmq               xiaochunping/rabbitmq:management   2018-06-30   0</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>拉取镜像
+</code></pre></div></div>
+<p>docker pull rabbitmq:management</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>运行镜像
+</code></pre></div></div>
+<p>docker run -d -p 5672:5672 -p 15672:15672 –name rabbitmq rabbitmq:management</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>访问后台
+</code></pre></div></div>
+<p>http://localhost:15672/#/</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+### 用例
+
+创建一个消费者 
+</code></pre></div></div>
+<p>// consumer.js
+// 使用callback API
+var amqp = require(‘amqplib/callback_api’)</p>
+
+<p>// 链接rabbitmq server
+amqp.connect(‘amqp://localhost’, function (err, conn) {
+  //创建通道
+  conn.createChannel(function (err, ch) {
+    // 声明一个队列
+    var q = ‘queue’
+    ch.assertQueue(q, {durable: false})
+    console.log(‘ [*] 等待消息 in %s [对列名]. To exit press CTRL+C’, q)
+    // 消费
+    ch.consume(q, function(msg) {
+      console.log(msg)
+      console.log(‘ [x] 收到消息 %s’, msg.content.toString())
+      ch.ack(msg)
+    })
+  })
+})</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+生产者:
+</code></pre></div></div>
+<p>// send.js
+var amqp = require(‘amqplib/callback_api’)</p>
+
+<p>amqp.connect(‘amqp://localhost’, function (err, conn) {
+  conn.createChannel(function (err, ch) {
+    var q = ‘queue’
+    ch.assertQueue(q, {durable: false})
+    // 发送消息到队列中
+    ch.sendToQueue(q, new Buffer(‘hello world’))
+    console.log(‘[x] send Hello world’)
+  })
+  setTimeout(function () {
+    // 关闭通道
+    conn.close()
+    process.exit(0)
+  }, 500)
+})</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+启动消费者
+</code></pre></div></div>
+<p>node consumer.js</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>发送被消费的消息
+</code></pre></div></div>
+<p>node send.js
+```</p>
+
+		
+	</div>
+</article>
+
+
+
+	  </main>
+		
+		  <!-- Pagination links -->
+      
+
+	  </div>
+	    
+	    <!-- Footer -->
+	    <footer><span>@2017-2019 Youngbye</span></footer>
+
+
+	    <!-- Script -->
+      <script src="/js/main.js"></script>	
+
+
+	</div>
+</body>
+</html>
