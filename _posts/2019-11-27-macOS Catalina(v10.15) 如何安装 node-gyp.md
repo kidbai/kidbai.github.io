@@ -1,6 +1,6 @@
 # 发生了什么
 
-macOS 系统升级到 Canalina v10.15 之后，我在执行 `npm i` 的时候出现了一下的错误：
+macOS 系统升级到 Catalina v10.15 之后，我在执行 `npm i` 的时候出现了一下的错误：
 
 ```
 make: *** [Release/obj.target/hiredis/src/hiredis.o] Error 1
@@ -22,9 +22,9 @@ npm WARN optional SKIPPING OPTIONAL DEPENDENCY: Exit status 1
 
 ```
 
-## 在 Canalina 中下载node-gyp
+## 在 Catalina 中下载node-gyp
 
-node-gyp 的 repo 地址 [https://github.com/nodejs/node-gyp](https://github.com/nodejs/node-gyp)，阅读后其实会发现对 Canalina(v10.15) 之后的系统版本有一个md的地址 [https://github.com/nodejs/node-gyp/blob/master/macOS_Catalina.md](https://github.com/nodejs/node-gyp/blob/master/macOS_Catalina.md) 里头有完整的处理方案就不赘述了
+node-gyp 的 repo 地址 [https://github.com/nodejs/node-gyp](https://github.com/nodejs/node-gyp)，阅读后其实会发现对 Catalina(v10.15) 之后的系统版本有一个md的地址 [https://github.com/nodejs/node-gyp/blob/master/macOS_Catalina.md](https://github.com/nodejs/node-gyp/blob/master/macOS_Catalina.md) 里头有完整的处理方案就不赘述了
 
 ## node-gyp 是什么？
 
